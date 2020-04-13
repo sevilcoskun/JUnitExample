@@ -1,3 +1,5 @@
+package patientintake;
+
 public enum Doctor {
     avery("Ralph Avery"),
     johnson("Beth Johnson"),

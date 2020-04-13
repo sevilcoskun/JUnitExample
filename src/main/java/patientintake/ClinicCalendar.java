@@ -1,3 +1,5 @@
+package patientintake;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -52,9 +54,21 @@ public class ClinicCalendar {
                 .collect(Collectors.toList());
     }
 
+    public List<PatientAppointment> getTomorrowAppointments() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        return appointments.stream()
+                .filter(appt -> appt.getAppointmentDateTime().toLocalDate().equals(tomorrow))
+                .collect(Collectors.toList());
+    }
+
     public boolean hasAppointment(LocalDate date){
         return appointments.stream()
                 .anyMatch(appt -> appt.getAppointmentDateTime().toLocalDate().equals(date));
     }
 
+    public List<PatientAppointment> getUpcomingAppointments() {
+        return appointments.stream()
+                .filter(appt -> appt.getAppointmentDateTime().toLocalDate().isAfter(today))
+                .collect(Collectors.toList());
+    }
 }

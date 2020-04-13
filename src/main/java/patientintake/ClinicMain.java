@@ -1,3 +1,5 @@
+package patientintake;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -21,6 +23,7 @@ public class ClinicMain {
         System.out.println("Please select an option");
         System.out.println("1. Enter a Patient Appointment");
         System.out.println("2. View All Appointments");
+        System.out.println("3. View Today's Appointments");
         System.out.println("X. Exit from the system");
         System.out.println("Option: ");
         String option = scan.next();
@@ -29,6 +32,7 @@ public class ClinicMain {
                 return option;
             case "2": performAllAppointments();
                 return option;
+            case "3": performTodayAppointments();
             default:
                 System.out.println("Invalid option, please re-enter");
                 return option;
@@ -44,7 +48,7 @@ public class ClinicMain {
         String firstName = scan.nextLine();
         System.out.print("Appointment Date (M/d/yyyy h:m a): ");
         String when = scan.nextLine();
-        System.out.print("Doctor Last Name: ");
+        System.out.print("patientintake.Doctor Last Name: ");
         String doctor = scan.nextLine();
 
         try{
@@ -64,5 +68,15 @@ public class ClinicMain {
                     appointmentTime, appointment.getPatientLastName(), appointment.getPatientFirstName(), appointment.getDoctor().getName()));
         }
         System.out.println("\nPlease press any key to continue...");
+    }
+
+    private static void performTodayAppointments() {
+        System.out.println("\nToday's Appointments in System: ");
+        for(PatientAppointment appointment : calendar.getTodayAppointments()){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy hh:mm a");
+            String appointmentTime = formatter.format(appointment.getAppointmentDateTime());
+            System.out.println(String.format("%s: %s, %s\t\tDoctor: %s",
+                    appointmentTime, appointment.getPatientLastName(), appointment.getPatientFirstName(), appointment.getDoctor().getName()));
+        }
     }
 }

@@ -1,3 +1,5 @@
+package patientintake;
+
 import java.time.LocalDateTime;
 
 public class PatientAppointment {
